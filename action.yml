@@ -22,11 +22,11 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/action.sh
-      args:
-        - ${{ inputs.destination-repo }}
-        - ${{ inputs.destination-folder-path }}
-        - ${{ inputs.destination-branch }}
-        - ${{ inputs.git-username }}
-        - ${{ inputs.git-email }}
+    - run: |
+        sh ${{ github.action_path }}/action.sh \
+          ${{ inputs.destination-repo }} \
+          ${{ inputs.destination-folder-path }} \
+          ${{ inputs.destination-branch }} \
+          ${{ inputs.git-username }} \
+          ${{ inputs.git-email }}
       shell: bash
