@@ -5,11 +5,7 @@
 set -e  # if a command fails it stops the execution
 set -u  # script fails if trying to access to an undefined variable
 
-function git-remote-url-reachable {
-    git ls-remote "$1" CHECK_GIT_REMOTE_URL_REACHABILITY &>/dev/null
-}
-
-####### region: Inputs
+####### Inputs
 
 DESTINATION_REPO_NAME="$1"
 DESTINATION_FOLDER_PATH="$2"
@@ -17,12 +13,12 @@ DESTINATION_BRANCH="$3"
 GITHUB_USERNAME="$4"
 GITHUB_EMAIL="$5"
 
-####### endregion: Configurations
+#######
 
 REPO_URL="git://github.com/$DESTINATION_REPO_NAME"
 DESTINATION_URL="https://github.com/$DESTINATION_REPO_NAME.git"
 
-if ! git-remote-url-reachable $REPO_URL
+if ! git ls-remote "$REPO_URL" CHECK_GIT_REMOTE_URL_REACHABILITY &>/dev/null
 then
     echo "The repository $DESTINATION_REPO_NAME does not exist."
 
