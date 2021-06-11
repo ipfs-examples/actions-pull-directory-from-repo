@@ -1,7 +1,4 @@
 # Pull From Another Repository
-A Github Action that can pull changes from a directory of a given repository.
-
-# Secrets Sync Action
 
 A Github Action that can pull changes from a directory of a given repository. This action allows to create a fork and go repository based on a directory/folder of another repository.
 
