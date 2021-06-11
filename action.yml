@@ -4,10 +4,10 @@ inputs:
   destination-repo:
     description: 'Target repository to pull directory'
     required: true
-  destination_folder_path:
+  destination-folder-path:
     description: 'Target repository path folder to be pulled'
     required: true
-  destination_branch:
+  destination-branch:
     description: 'Target repository branch to pull directory'
     required: true
     default: 'main'
@@ -25,8 +25,8 @@ runs:
     - run: ${{ github.action_path }}/action.sh
       args:
         - ${{ inputs.destination-repo }}
-        - ${{ inputs.destination_folder_path }}
-        - ${{ inputs.destination_branch }}
+        - ${{ inputs.destination-folder-path }}
+        - ${{ inputs.destination-branch }}
         - ${{ inputs.git-username }}
         - ${{ inputs.git-email }}
       shell: bash
