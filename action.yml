@@ -8,7 +8,11 @@ inputs:
     description: 'Target repository path folder to be pulled'
     required: true
   destination-branch:
-    description: 'Target repository branch to pull directory'
+    description: 'Target repository branch to pull the directory'
+    required: true
+    default: 'main'
+  source-branch:
+    description: 'Source repository branch to push the directory'
     required: true
     default: 'main'
   git-username:
@@ -27,6 +31,7 @@ runs:
           ${{ inputs.destination-repo }} \
           ${{ inputs.destination-folder-path }} \
           ${{ inputs.destination-branch }} \
+          ${{ inputs.source-branch }} \
           ${{ inputs.git-username }} \
           ${{ inputs.git-email }}
       shell: bash

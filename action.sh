@@ -9,8 +9,9 @@ set -u  # script fails if trying to access to an undefined variable
 DESTINATION_REPO_NAME="$1"
 DESTINATION_FOLDER_PATH="$2"
 DESTINATION_BRANCH="$3"
-GITHUB_USERNAME="$4"
-GITHUB_EMAIL="$5"
+SOURCE_BRANCH="$4"
+GITHUB_USERNAME="$5"
+GITHUB_EMAIL="$6"
 
 #######
 
@@ -34,10 +35,10 @@ git remote add -f source "$DESTINATION_URL"
 git checkout -b upstream "source/$DESTINATION_BRANCH"
 
 git subtree split -P "$DESTINATION_FOLDER_PATH" -b example
-git checkout master
+git checkout "$SOURCE_BRANCH"
 
 echo "Check if exist changes"
-if git diff master..example &>/dev/null
+if git diff "$SOURCE_BRANCH"..example &>/dev/null
 then
     echo "Merging changes..."
     git merge -s recursive -Xtheirs example --allow-unrelated-histories --no-edit

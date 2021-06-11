@@ -17,7 +17,11 @@ A Github Action that can pull changes from a directory of a given repository. Th
 
 ### `destination-branch`
 
-**Required** Target repository branch to pull directory. Defaults to `main`
+**Required** Target repository branch to pull the irectory. Defaults to `main`
+
+### `source-branch`
+
+**Required** Source repository branch to push the directory. Defaults to `main`
 
 ### `git-username`
 
@@ -36,6 +40,7 @@ A Github Action that can pull changes from a directory of a given repository. Th
     destination-repo: 'ipfs-examples/examples-source'
     destination-folder-path: 'examples/example1'
     destination-branch: 'main'
+    source-branch: 'main'
     git-username: github-actions
     git-email: github-actions@github.com
 ```
