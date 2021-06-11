@@ -1,0 +1,32 @@
+name: 'Pull Directory Action'
+description: 'Pull directory from another repository and push to the current repository'
+inputs:
+  destination-repo:
+    description: 'Target repository to pull directory'
+    required: true
+  destination_folder_path:
+    description: 'Target repository path folder to be pulled'
+    required: true
+  destination_branch:
+    description: 'Target repository branch to pull directory'
+    required: true
+    default: 'main'
+  git-username:
+    description: 'Username to be used by git'
+    required: true
+    default: 'github-actions'
+  git-email:
+    description: 'Email to be used by git'
+    required: true
+    default: 'github-actions@github.com'
+runs:
+  using: "composite"
+  steps:
+    - run: ${{ github.action_path }}/action.sh
+      args:
+        - ${{ inputs.destination-repo }}
+        - ${{ inputs.destination_folder_path }}
+        - ${{ inputs.destination_branch }}
+        - ${{ inputs.git-username }}
+        - ${{ inputs.git-email }}
+      shell: bash
