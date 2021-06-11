@@ -18,6 +18,7 @@ GITHUB_EMAIL="$5"
 REPO_URL="git://github.com/$DESTINATION_REPO_NAME"
 DESTINATION_URL="https://github.com/$DESTINATION_REPO_NAME.git"
 
+echo "Check if repo $REPO_URL exists"
 if ! git ls-remote "$REPO_URL" CHECK_GIT_REMOTE_URL_REACHABILITY &>/dev/null
 then
     echo "The repository $DESTINATION_REPO_NAME does not exist."
@@ -29,11 +30,10 @@ echo "Set git configurations"
 git config user.name "$GITHUB_USERNAME"
 git config user.email "$GITHUB_EMAIL"
 
-echo "Check if repo $DESTINATION_URL exists"
+echo "Get latest files for $DESTINATION_FOLDER_PATH"
 git remote add -f source "$DESTINATION_URL"
 git checkout -b upstream "source/$DESTINATION_BRANCH"
 
-echo "Get latest files for $DESTINATION_FOLDER_PATH"
 git subtree split -P "$DESTINATION_FOLDER_PATH" -b example
 git checkout master
 
