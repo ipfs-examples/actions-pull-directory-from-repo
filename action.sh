@@ -5,7 +5,7 @@
 set -e  # if a command fails it stops the execution
 set -u  # script fails if trying to access to an undefined variable
 
-git-remote-url-reachable() {
+function git-remote-url-reachable {
     git ls-remote "$1" CHECK_GIT_REMOTE_URL_REACHABILITY &>/dev/null
 }
 
