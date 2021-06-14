@@ -41,7 +41,7 @@ git filter-branch --prune-empty --subdirectory-filter "$DESTINATION_FOLDER_PATH"
 git checkout "$SOURCE_BRANCH"
 
 echo "Check if exist changes"
-if git diff -- ':!.github' "$SOURCE_BRANCH"..example &>/dev/null
+if git diff -- ':!.github' "$SOURCE_BRANCH".."source/$DESTINATION_BRANCH" &>/dev/null
 then
     echo "Merging changes..."
     git merge -s recursive -Xtheirs example --allow-unrelated-histories --no-edit
