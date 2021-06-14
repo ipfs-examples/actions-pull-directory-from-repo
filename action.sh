@@ -19,7 +19,7 @@ REPO_URL="git://github.com/$DESTINATION_REPO_NAME"
 DESTINATION_URL="https://github.com/$DESTINATION_REPO_NAME.git"
 
 echo "Check if repo $REPO_URL exists"
-if ! git ls-remote "$REPO_URL"
+if ! git ls-remote "$REPO_URL" &> /dev/null
 then
     echo "The repository $DESTINATION_REPO_NAME does not exist."
 
@@ -34,7 +34,7 @@ echo "Get latest files for $DESTINATION_FOLDER_PATH"
 git remote add -f source "$DESTINATION_URL"
 git checkout -b upstream "source/$DESTINATION_BRANCH"
 
-git filter-branch --prune-empty --subdirectory-filter "$DESTINATION_FOLDER_PATH" "$DESTINATION_BRANCH"
+git filter-branch --prune-empty --subdirectory-filter "$DESTINATION_FOLDER_PATH"
 # git subtree split -P "$DESTINATION_FOLDER_PATH" -b example
 git checkout "$SOURCE_BRANCH"
 
