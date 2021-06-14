@@ -19,7 +19,9 @@ REPO_URL="git://github.com/$DESTINATION_REPO_NAME"
 DESTINATION_URL="https://github.com/$DESTINATION_REPO_NAME.git"
 
 echo "Check if repo $REPO_URL exists"
-if ! git ls-remote "$REPO_URL" &> /dev/null
+git ls-remote "$REPO_URL" -q
+
+if [[ $? -ne 0 ]]
 then
     echo "The repository $DESTINATION_REPO_NAME does not exist."
 
