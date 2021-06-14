@@ -34,7 +34,8 @@ echo "Get latest files for $DESTINATION_FOLDER_PATH"
 git remote add -f source "$DESTINATION_URL"
 git checkout -b upstream "source/$DESTINATION_BRANCH"
 
-git subtree split -P "$DESTINATION_FOLDER_PATH" -b example
+git filter-branch --prune-empty --subdirectory-filter "$DESTINATION_FOLDER_PATH" "$DESTINATION_BRANCH"
+# git subtree split -P "$DESTINATION_FOLDER_PATH" -b example
 git checkout "$SOURCE_BRANCH"
 
 echo "Check if exist changes"
