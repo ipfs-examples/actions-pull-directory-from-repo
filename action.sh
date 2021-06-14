@@ -39,7 +39,7 @@ git checkout -b upstream "source/$DESTINATION_BRANCH"
 git filter-branch --prune-empty --subdirectory-filter "$DESTINATION_FOLDER_PATH" "source/$DESTINATION_BRANCH"
 # git subtree split -P "$DESTINATION_FOLDER_PATH" -b example
 BRANCH_WITH_CHANGES="source/$DESTINATION_BRANCH"
-git checkout "origin/$SOURCE_BRANCH"
+git checkout "$SOURCE_BRANCH"
 
 echo "Check if exist changes"
 if git diff "$SOURCE_BRANCH".."$BRANCH_WITH_CHANGES" -- ':!.github' &> /dev/null
