@@ -4,21 +4,21 @@ A Github Action that can pull changes from a directory of a given repository. Th
 
 ## Inputs
 
-### `destination-repo`
+### `source-repo`
 
-**Required** Target repository to pull directory.
+**Required** Source repository to pull directory.
 
-### `destination-folder-path`
+### `source-folder-path`
 
-**Required** Target repository path folder to be pulled.
-
-### `destination-branch`
-
-**Required** Target repository branch to pull the irectory. Defaults to `main`
+**Required** Source repository path folder to be pulled.
 
 ### `source-branch`
 
-**Required** Source repository branch to push the directory. Defaults to `main`
+**Required** Source repository branch to pull the directory. Defaults to `main`
+
+### `target-branch`
+
+**Required** Target repository branch to push the directory. Defaults to `main`
 
 ### `git-username`
 
@@ -34,10 +34,10 @@ A Github Action that can pull changes from a directory of a given repository. Th
 - name: Pull from another repository
   uses: ipfs-examples/actions-pull-directory-from-repo
   with:
-    destination-repo: 'ipfs-examples/examples-source'
-    destination-folder-path: 'examples/example1'
-    destination-branch: 'main'
-    source-branch: 'main'
+    source-repo: "ipfs-examples/examples-source"
+    source-folder-path: "examples/example1"
+    source-branch: "main"
+    target-branch: "main"
     git-username: github-actions
     git-email: github-actions@github.com
 ```

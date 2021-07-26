@@ -1,37 +1,37 @@
-name: 'Pull Directory Action'
-description: 'Pull directory from another repository and push to the current repository'
+name: "Pull Directory Action"
+description: "Pull directory from a repository and push to the current repository"
 inputs:
-  destination-repo:
-    description: 'Target repository to pull directory'
+  source-repo:
+    description: "Source repository to pull directory"
     required: true
-  destination-folder-path:
-    description: 'Target repository path folder to be pulled'
-    required: true
-  destination-branch:
-    description: 'Target repository branch to pull the directory'
-    required: true
-    default: 'main'
+  source-folder-path:
+    description: "Source repository path folder to be pulled"
+    source: true
   source-branch:
-    description: 'Source repository branch to push the directory'
+    description: "Source repository branch to pull the directory"
     required: true
-    default: 'main'
+    default: "main"
+  target-branch:
+    description: "Target repository branch to push the directory"
+    required: true
+    default: "main"
   git-username:
-    description: 'Username to be used by git'
+    description: "Username to be used by git"
     required: true
-    default: 'github-actions'
+    default: "github-actions"
   git-email:
-    description: 'Email to be used by git'
+    description: "Email to be used by git"
     required: true
-    default: 'github-actions@github.com'
+    default: "github-actions@github.com"
 runs:
   using: "composite"
   steps:
     - run: |
         sh ${{ github.action_path }}/action.sh \
-          ${{ inputs.destination-repo }} \
-          ${{ inputs.destination-folder-path }} \
-          ${{ inputs.destination-branch }} \
+          ${{ inputs.source-repo }} \
+          ${{ inputs.source-folder-path }} \
           ${{ inputs.source-branch }} \
+          ${{ inputs.target-branch }} \
           ${{ inputs.git-username }} \
           ${{ inputs.git-email }}
       shell: bash
