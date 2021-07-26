@@ -33,22 +33,24 @@ git config user.name "$GITHUB_USERNAME"
 git config user.email "$GITHUB_EMAIL"
 
 echo "Get latest files for $SOURCE_FOLDER_PATH"
-git remote add -f source "$DESTINATION_URL" &> /dev/null
-git checkout -b upstream "source/$SOURCE_BRANCH"
-
-git filter-branch --prune-empty --subdirectory-filter "$SOURCE_FOLDER_PATH" "source/$SOURCE_BRANCH"
-# git subtree split -P "$SOURCE_FOLDER_PATH" -b example
 BRANCH_WITH_CHANGES="source/$SOURCE_BRANCH"
+
+git remote add -f source "$DESTINATION_URL" &> /dev/null
+git checkout -b upstream "$BRANCH_WITH_CHANGES"
+
+git filter-branch --prune-empty --subdirectory-filter "$SOURCE_FOLDER_PATH" "$BRANCH_WITH_CHANGES"
+# git subtree split -P "$SOURCE_FOLDER_PATH" -b example
+BRANCH_WITH_CHANGES=source/$SOURCE_BRANCH""
 git checkout "$TARGET_BRANCH"
 
 echo "Check if exist changes"
-if git diff "$TARGET_BRANCH".."$BRANCH_WITH_CHANGES" -- ':!.github'
+if git diff "$TARGET_BRANCH".."$BRANCH_WITH_CHANGES" --exit-code -- ':!.github'
 then
+    echo "Does not exist any changes."
+else
     echo "Merging changes..."
     git merge -s recursive -Xtheirs "$BRANCH_WITH_CHANGES" --allow-unrelated-histories --no-edit
 
     echo "Pushing changes..."
     git push
-else
-    echo "Does not exist any changes."
 fi
