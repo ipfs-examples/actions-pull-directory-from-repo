@@ -39,8 +39,6 @@ git remote add -f source "$DESTINATION_URL" &> /dev/null
 git checkout -b upstream "$BRANCH_WITH_CHANGES"
 
 git filter-branch --prune-empty --subdirectory-filter "$SOURCE_FOLDER_PATH" "$BRANCH_WITH_CHANGES"
-# git subtree split -P "$SOURCE_FOLDER_PATH" -b example
-BRANCH_WITH_CHANGES=source/$SOURCE_BRANCH""
 git checkout "$TARGET_BRANCH"
 
 echo "Check if exist changes"
@@ -49,8 +47,8 @@ then
     echo "Does not exist any changes."
 else
     echo "Merging changes..."
-    git merge -s recursive -Xtheirs "$BRANCH_WITH_CHANGES" --allow-unrelated-histories --no-edit
+    git reset --hard "$BRANCH_WITH_CHANGES"
 
     echo "Pushing changes..."
-    git push
+    git push -f
 fi
