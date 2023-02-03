@@ -36,7 +36,7 @@ echo "Get latest files for $SOURCE_FOLDER_PATH"
 BRANCH_WITH_CHANGES="source/$SOURCE_BRANCH"
 
 git remote add -f source "$DESTINATION_URL"
-git fetch remote
+git fetch source
 git checkout -b upstream "$BRANCH_WITH_CHANGES"
 
 echo "Squelching git filter-branch warning"
