@@ -15,11 +15,10 @@ GITHUB_EMAIL="$6"
 
 #######
 
-REPO_URL="git://github.com/$SOURCE_REPO_NAME"
-DESTINATION_URL="https://github.com/$SOURCE_REPO_NAME.git"
+SOURCE_REPO_URL="https://github.com/$SOURCE_REPO_NAME.git"
 
-echo "Check if repo $REPO_URL exists"
-git ls-remote "$REPO_URL" -q
+echo "Check if repo $SOURCE_REPO_URL exists"
+git ls-remote "$SOURCE_REPO_URL" -q
 
 if [[ $? -ne 0 ]]
 then
@@ -35,7 +34,7 @@ git config user.email "$GITHUB_EMAIL"
 echo "Get latest files for $SOURCE_FOLDER_PATH"
 BRANCH_WITH_CHANGES="source/$SOURCE_BRANCH"
 
-git remote add -f source "$DESTINATION_URL"
+git remote add -f source "$SOURCE_REPO_URL"
 git fetch source
 git checkout -b upstream "$BRANCH_WITH_CHANGES"
 
