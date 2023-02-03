@@ -28,23 +28,27 @@ then
     exit 1
 fi
 
-echo "Set git configurations"
+echo "Update git configuration"
 git config user.name "$GITHUB_USERNAME"
 git config user.email "$GITHUB_EMAIL"
 
 echo "Get latest files for $SOURCE_FOLDER_PATH"
 BRANCH_WITH_CHANGES="source/$SOURCE_BRANCH"
 
-git remote add -f source "$DESTINATION_URL" &> /dev/null
+git remote add -f source "$DESTINATION_URL"
+git fetch remote
 git checkout -b upstream "$BRANCH_WITH_CHANGES"
+
+echo "Squelching git filter-branch warning"
+export FILTER_BRANCH_SQUELCH_WARNING=1
 
 git filter-branch --prune-empty --subdirectory-filter "$SOURCE_FOLDER_PATH" "$BRANCH_WITH_CHANGES"
 git checkout "$TARGET_BRANCH"
 
-echo "Check if exist changes"
+echo "Check if the example has changed"
 if git diff "$TARGET_BRANCH".."$BRANCH_WITH_CHANGES" --exit-code -- ':!.github'
 then
-    echo "Does not exist any changes."
+    echo "The example has not changed"
 else
     echo "Merging changes..."
     git reset --hard "$BRANCH_WITH_CHANGES"
